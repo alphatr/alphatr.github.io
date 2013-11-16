@@ -3,13 +3,49 @@
 <head>
 <meta charset="UTF-8" />
 <title></title>
-<link rel="stylesheet" type="text/css" href="style.css"/>
+<style>
+body {
+    margin: 0;
+}
+#detect-zoom {
+    font-size: 1.2em;
+    height: 2em;
+    padding: 0 1em;
+    line-height: 2em;
+    background: #444;
+    color: #EEE;
+    margin: 0;
+}
+</style>
 </head>
 <body>
-<!-- 这里开始正文 -->
-<script src="http://www.alpha.com/script/jquery.js" ></script>
+    <p id="detect-zoom">原始大小 100%, devicePxPerCssPx: 1, 字符缩放比例: 1.</p>
+    <h1>试着缩放页面</h1>
+<script src="detect-zoom.js" ></script>
 <script>
-// 脚本代码
+(function(){
+    var zoom = function() {
+        var tpl = '原始大小 {%zoom%}%, devicePxPerCssPx: {%device%}, 字符缩放比例: {%text%}.',
+        zoom = Math.floor( detectZoom.zoom() * 100 ),
+        device = detectZoom.device().toFixed(2),
+        text = detectZoom.zoomText().toFixed(2),
+        str;
+        if (zoom > 100) {
+            tpl = tpl.replace('原始大小', '页面放大了');
+        }
+        else if (zoom < 100) {
+            tpl = tpl.replace('原始大小', '页面缩小了');
+        }
+        var str = tpl.replace(/{%zoom%}/ig, zoom);
+        var str = str.replace(/{%device%}/ig, device);
+        var str = str.replace(/{%text%}/ig, text);
+        document.getElementById('detect-zoom').innerHTML = str;
+        document.body.style.fontSize = (100 / zoom * 16) + 'px';
+    }
+
+    window.onresize = zoom;
+    zoom();
+}());
 </script>
 </body>
 </html>
