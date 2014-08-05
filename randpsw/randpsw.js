@@ -51,8 +51,9 @@
         // 打乱
         for (i = 0; i < length; i++) {
             randpswArr = randpswArr.sort(function (a, b) {
-                var key = parseInt(md5(a + b).substr(0, 2), 16);
-                return key % 2;
+                a = parseInt(md5(a + hash.toString(16)).substr(0, 8), 16);
+                b = parseInt(md5(b + hash.toString(16)).substr(0, 8), 16);
+                return a - b;
             });
         }
 
