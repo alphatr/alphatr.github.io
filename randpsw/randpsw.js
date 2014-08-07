@@ -31,6 +31,29 @@
                 index = index % aryNum.length;
                 return charList[type].charAt(parseInt(aryNum.charAt(index), length));
             },
+
+            // 打乱密码算法
+            randArr = function (arr) {
+                var len = arr.length,
+                    i, j,
+                    tmp, md5r,
+                    key1, key2;
+                for (i = 0; i <= len; i++) {
+                    for (j = 0; j <= len - 1; j++) {
+                        md5r = md5(arr[j] + arr[j + 1]);
+                        key1 = parseInt(md5r.substr(0, 4), 16) % len;
+                        key2 = parseInt(md5r.substr(4, 8), 16) % len;
+                        console.log(key1, key2);
+                        if (key1 === key2) {
+                            continue;
+                        }
+                        tmp = arr[key1];
+                        arr[key1] = arr[key2];
+                        arr[key2] = tmp;
+                    }
+                }
+                return arr;
+            },
             single;
 
         // 循环替换
@@ -49,15 +72,7 @@
         }
 
         // 打乱
-        for (i = 0; i < length; i++) {
-            randpswArr = randpswArr.sort(function (a, b) {
-                a = parseInt(md5(a + hash.toString(16)).substr(0, 8), 16);
-                b = parseInt(md5(b + hash.toString(16)).substr(0, 8), 16);
-                return a - b;
-            });
-        }
-
-        return randpswArr.join('');
+        return randArr(randpswArr).join('');
     }
 
     ns.randpsw = randpsw;
