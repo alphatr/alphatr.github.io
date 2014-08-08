@@ -17,7 +17,7 @@ h2 {
     height: 36px;
     color: #AAA;
     font-weight: normal;
-    max-width: 480px;
+    max-width: 400px;
     padding: 20px;
     margin: 0 auto;
 }
@@ -55,9 +55,6 @@ input:hover {
 }
 input:focus {
     border-color: #207FCA;
-}
-input[readonly] {
-    border-color: #BBB;
 }
 button {
     box-sizing: content-box;
@@ -102,7 +99,7 @@ small {
     border-radius: 3px;
     padding: 20px;
     background: #FFF;
-    max-width: 480px;
+    max-width: 400px;
     margin: 0 auto;
 }
 .content p {
@@ -110,7 +107,7 @@ small {
     margin: 10px 0;
     line-height: 32px;
 }
-@media(max-width:540px) {
+@media(max-width:460px) {
     .bd {
         margin: 0 10px;
     }
@@ -118,6 +115,9 @@ small {
 @media(max-width:440px) {
     small {
         display: none;
+    }
+    input {
+        width: calc(100% - 85px);
     }
 }
 @media(max-width:340px) {
@@ -155,7 +155,7 @@ small {
             </p>
             <p>
                 <label for="ipt-rst">结果</label>
-                <input type="text" id="ipt-rst" size="40" readonly="">
+                <input type="text" id="ipt-rst" size="40">
             </p>
             <p><button type="submit">查询</button></p>
             <p class="notes"><a href="http://blog.alphatr.com/randpsw.html">详细介绍</a>，<a href="https://chrome.google.com/webstore/detail/randpsw/ppndhpbicichfhcckogojnaobhggaljm">Chrome 插件地址</a>，<a href="https://github.com/AlphaTr/randpsw">GitHub</a></p>
