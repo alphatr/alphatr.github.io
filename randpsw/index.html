@@ -7,87 +7,160 @@
 <style>
 body {
     margin: 0;
-    background: #EEE;
+    font: normal 13px/20px '微软雅黑' sans-serif;
+    background: #F9F9F9;
+    color: #555;
 }
-#main {
-    margin: 10px auto;
+h2 {
+    font-size: 22px;
+    line-height: 36px;
+    height: 36px;
+    color: #AAA;
+    font-weight: normal;
     max-width: 480px;
+    padding: 20px;
+    margin: 0 auto;
 }
-
-h1, form {
-    padding: 10px;
-    margin: 10px;
-    font-size: 16px;
-    border: 1px solid #CCC;
-    border-radius: 3px;
-    background: #FFF;
+.clearfix:after {
+    content: "";
+    display: table;
+    clear: both;
+    overflow: hidden;
 }
-h1 {
-    height: 30px;
-    line-height: 30px;
+a {
+    color: #36F;
+    text-decoration: none;
 }
-#main p {
-    margin: 10px 5px;
-    line-height: 28px;
-    height: 28px;
-    display: -webkit-flex;
-    display: flex;
+a:hover {
+    text-decoration: underline;
 }
-#main p label {
+input {
+    box-sizing: content-box;
     display: inline-block;
-    width: 50px;
+    outline: 0;
+    border: 1px solid #BBB;
+    padding: 4px 5px;
+    height: 20px;
+    line-height: 16px;
+    border-radius: 2px;
+    width: 200px;
+    font-family: monospace;
+    font-size: 13px;
 }
-#main p label:after {
+input[type=password] {
+    font-family: verdana;
+}
+input:hover {
+    border-color: #888;
+}
+input:focus {
+    border-color: #207FCA;
+}
+input[readonly] {
+    border-color: #BBB;
+}
+button {
+    box-sizing: content-box;
+    height: 28px;
+    line-height: 26px;
+    border: 1px solid #999;
+    border-radius: 2px;
+    margin: 1px 2px;
+    padding: 0 10px;
+    font-family: monospace;
+    background:linear-gradient(to bottom, #F5F5F5 5%, #EEE 100%);
+}
+button:hover {
+    outline: none;
+    background:linear-gradient(to bottom, #EEE 5%, #F5F5F5 100%);
+}
+button:focus, button:active {
+    outline: none;
+}
+label {
+    display: inline-block;
+    width: 60px;
+    text-align: right;
+    font-size: 14px;
+}
+label:after {
     content: '：';
 }
-#main p input {
-    -webkit-flex: 1;
-    flex: 1;
-    margin: 0;
-    padding: 3px 5px;
-    border: 1px solid #BBB;
-    border-radius: 2px;
-}
-#submit {
-    display: block;
-    box-sizing: content-box;
-    margin: 0;
-    margin-left: 50px;
-    padding: 3px 20px;
-    line-height: 18px;
-    height: 18px;
-    font-family: '微软雅黑';
-}
-#result {
-    margin-left: 50px;
-}
-.notes {
+small {
     font-size: 13px;
-    line-height: 28px;
-    margin: 8px 0;
+    color: #AAA;
+    margin-left: 5px;
 }
-.notes a {
-    text-decoration: none;
-    color: #36F;
+.hd {
+    background-color: #FFF;
+    height: 69px;
+    border-bottom: 1px solid #EEE;
+    margin-bottom: 15px;
 }
-.notes a:hover {
-    text-decoration: underline;
+.bd {
+    border: 1px solid #CCC;
+    border-radius: 3px;
+    padding: 20px;
+    background: #FFF;
+    max-width: 480px;
+    margin: 0 auto;
+}
+.content p {
+    height: 32px;
+    margin: 10px 0;
+    line-height: 32px;
+}
+@media(max-width:540px) {
+    .bd {
+        margin: 0 10px;
+    }
+}
+@media(max-width:440px) {
+    small {
+        display: none;
+    }
+}
+@media(max-width:340px) {
+    .bd {
+        padding: 10px;
+    }
+    label {
+        width: 50px;
+    }
 }
 </style>
 <base target="_blank">
 </head>
 <body>
-<div id="main">
-    <h1>RandPsw 生成</h1>
-    <form action="" method="get" id="form">
-        <p><label for="salt">Salt</label><input type="password" id="salt" name="salt"></p>
-        <p><label for="domain">域名</label><input type="text" id="domain" name="domain"></p>
-        <p><label for="password">密码</label><input type="password" id="password" name="password"></p>
-        <p><button type="submit" id="submit">生成</button></p>
-        <p><code id="result"></code></p>
-        <p class="notes">注意：这里的域名应该填写加密域名。</p>
-        <p class="notes"><a href="http://blog.alphatr.com/randpsw.html">查看详细介绍</a>，<a href="https://chrome.google.com/webstore/detail/randpsw/ppndhpbicichfhcckogojnaobhggaljm">Chrome 插件地址</a>，<a href="https://github.com/AlphaTr/randpsw">GitHub 地址</a></p>
-    </form>
+<div class="hd">
+    <h2>RandPsw 密码查询</h2>
+</div>
+<div class="bd">
+    <div id="query">
+        <form class="content" id="form">
+            <p>
+                <label for="ipt-salt">Salt</label>
+                <input type="password" id="ipt-salt" size="40">
+                <small>输入密码的网页</small>
+            </p>
+            <p>
+                <label for="ipt-host">网页</label>
+                <input type="text" id="ipt-host" placeholder="http://" size="40">
+                <small>输入密码的网页</small>
+            </p>
+            <p>
+                <label for="ipt-psw">密码</label>
+                <input type="password" id="ipt-psw" size="40">
+                <small>将要输入的密码</small>
+            </p>
+            <p>
+                <label for="ipt-rst">结果</label>
+                <input type="text" id="ipt-rst" size="40" readonly="">
+            </p>
+            <p><button type="submit">查询</button></p>
+            <p class="notes"><a href="http://blog.alphatr.com/randpsw.html">详细介绍</a>，<a href="https://chrome.google.com/webstore/detail/randpsw/ppndhpbicichfhcckogojnaobhggaljm">Chrome 插件地址</a>，<a href="https://github.com/AlphaTr/randpsw">GitHub</a></p>
+        </form>
+    </div>
 </div>
 <script src="http://astc.qiniudn.com/static/fedd2fa6260c5866,920dc864124f5055.js"></script>
 <script src="randpsw.js"></script>
@@ -117,10 +190,10 @@ h1 {
 
     $('form').addEventListener('submit', function (e) {
         e.preventDefault();
-        salt = md5($('salt').value);
-        domain = getDomain($('domain').value);
-        password = $('password').value;
-        $('result').innerHTML = randpsw(password, domain, salt);
+        salt = md5($('ipt-salt').value);
+        domain = getDomain($('ipt-host').value);
+        password = $('ipt-psw').value;
+        $('ipt-rst').value = randpsw(password, domain, salt);
     });
 }());
 </script>

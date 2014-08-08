@@ -43,7 +43,6 @@
                         md5r = md5(arr[j] + arr[j + 1]);
                         key1 = parseInt(md5r.substr(0, 4), 16) % len;
                         key2 = parseInt(md5r.substr(4, 8), 16) % len;
-                        console.log(key1, key2);
                         if (key1 === key2) {
                             continue;
                         }
