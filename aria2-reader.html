@@ -1,0 +1,47 @@
+<!doctype HTML>
+<html dir="ltr" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+  <title>Aria2 File Reader</title>
+</head>
+<body>
+  <input type="file" multiple>
+  <div id="result"></div>
+  <script type="text/javascript">
+  document.querySelector('input').addEventListener('change', function (evt) {
+    for(let index = 0; index < evt.target.files.length; index++) {
+      const file = evt.target.files[index];
+      parseFile(file, result => {
+        const el = document.createElement('p');
+        el.innerHTML = result;
+        document.querySelector('#result').appendChild(el);
+      });
+    }
+  });
+
+  const parseFile = function parseFile(file, callback) {
+    const reader = new FileReader();
+    
+    reader.onloadend = function(evt) {
+      const result = evt.target.result;
+      const length = parseInt(sliceBinary(result, 6, 4), 16);
+      const hash = sliceBinary(result, 10, length).toUpperCase();
+      
+      callback(`magnet:?xt=urn:btih:${hash}`);
+    };
+    
+    reader.readAsBinaryString(file);
+  };
+
+  const sliceBinary = function sliceBinary(binary, start, length) {
+    const hex = [];
+    for (let index = 0; index < length; index++) {
+      const char = binary.charCodeAt(index + start).toString(16);
+      hex.push(('00' + char).substr(-2));
+    }
+    
+    return hex.join('');
+  };
+  </script>
+</body>
+</html>
